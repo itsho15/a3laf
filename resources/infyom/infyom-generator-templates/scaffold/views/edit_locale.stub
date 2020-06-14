@@ -1,0 +1,47 @@
+@extends('layouts.inverse')
+@section('content')
+    <div class="container-fluid">
+            <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h4 class="text-themecolor">@lang('models/$MODEL_NAME_PLURAL_CAMEL$.singular')</h4>
+                    </div>
+                    <div class="col-md-7 align-self-center text-right">
+                        <div class="d-flex justify-content-end align-items-center">
+                             <ol class="breadcrumb">
+                              <li class="breadcrumb-item">
+                                 <a href="{!! route('admin.$MODEL_NAME_PLURAL_CAMEL$.index') !!}">@lang('models/$MODEL_NAME_PLURAL_CAMEL$.singular')</a>
+                              </li>
+                              <li class="breadcrumb-item active">@lang('backend.Edit')</li>
+                            </ol>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! Form::model($$MODEL_NAME_CAMEL$, ['route' => ['$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.update', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$], 'method' => 'patch']) !!}
+
+                                    @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.fields')
+
+                               {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+    </div>
+@endsection
+

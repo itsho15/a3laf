@@ -1,0 +1,76 @@
+openapi: 3.0.0
+paths:
+  /users:
+    get:
+      tags:
+        - User
+      summary: 'Get a listing of the Users.'
+      description: 'Get all Users'
+      operationId: 'App\Http\Controllers\API\UserAPIController::index'
+      responses:
+        '200':
+          description: 'successful operation'
+      produces:
+        - application/json
+  '/users/{id}':
+    get:
+      tags:
+        - User
+      summary: 'Display the specified User'
+      description: 'Get User'
+      operationId: 'App\Http\Controllers\API\UserAPIController::show'
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'id of User'
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: 'successful operation'
+      produces:
+        - application/json
+    put:
+      tags:
+        - User
+      summary: 'Update the specified User in storage'
+      description: 'Update User'
+      operationId: 'App\Http\Controllers\API\UserAPIController::update'
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'id of User'
+          required: true
+          type: integer
+        -
+          name: body
+          in: body
+          description: 'User that should be updated'
+          required: false
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: 'successful operation'
+      produces:
+        - application/json
+    delete:
+      tags:
+        - User
+      summary: 'Remove the specified User from storage'
+      description: 'Delete User'
+      operationId: 'App\Http\Controllers\API\UserAPIController::destroy'
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'id of User'
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: 'successful operation'
+      produces:
+        - application/json
