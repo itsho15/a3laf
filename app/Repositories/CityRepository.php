@@ -37,16 +37,6 @@ class CityRepository extends BaseRepository {
 	}
 
 	public function create($input) {
-
-		if (request()->hasFile('image')) {
-			$input['image'] = up()->upload([
-				'file' => 'image',
-				'path' => 'cities',
-				'upload_type' => 'single',
-				'delete_file' => '',
-			]);
-		}
-
 		$model = $this->model->newInstance($input);
 		$translations = [
 			'en' => $input['name'],
@@ -62,15 +52,6 @@ class CityRepository extends BaseRepository {
 		$query = $this->model->newQuery();
 
 		$model = $query->findOrFail($id);
-		if (request()->hasFile('image')) {
-			$input['image'] = up()->upload([
-				'file' => 'image',
-				'path' => 'cities',
-				'upload_type' => 'single',
-				'delete_file' => $model->image,
-			]);
-		}
-
 		$model->fill($input);
 		$translations = [
 			'en' => $input['name'],

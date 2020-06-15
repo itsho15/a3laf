@@ -93,10 +93,10 @@ class UserAPIController extends AppBaseController {
 		];
 
 		if (request()->hasFile('avatar')) {
-			$data['avatar'] = up()->uplSWGd([
+			$data['avatar'] = up()->upload([
 				'file' => 'avatar',
 				'path' => 'avatars',
-				'uplSWGd_type' => 'single',
+				'upload_type' => 'single',
 				'delete_file' => '',
 			]);
 		}

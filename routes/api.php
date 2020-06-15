@@ -28,7 +28,7 @@ Route::resource('settings', 'SettingsApiController');
 Route::post('ads/update/{id}', 'AdAPIController@update');
 Route::resource('ads', 'AdAPIController');
 Route::resource('banks', 'BankAPIController');
-
+Route::resource('hosnies', 'HosnyAPIController');
 Route::resource('types', 'TypeAPIController');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
@@ -42,4 +42,5 @@ Route::group(['middleware' => ['jwt.verify']], function () {
 	Route::resource('conversations', 'ConversationAPIController');
 	Route::resource('messages', 'MessageAPIController');
 	Route::resource('followers', 'FollowerAPIController');
+
 });

@@ -54,10 +54,17 @@ class MessageRepository extends BaseRepository {
 
 		$input['user_id'] = JWTAuth::user()->id;
 		if ($input['type'] == 'image') {
-
 			$input['content'] = up()->upload([
 				'file' => 'content',
 				'path' => 'images_message',
+				'upload_type' => 'single',
+				'delete_file' => '',
+			]);
+		}
+		if ($input['type'] == 'voice') {
+			$input['content'] = up()->upload([
+				'file' => 'content',
+				'path' => 'voices_message',
 				'upload_type' => 'single',
 				'delete_file' => '',
 			]);

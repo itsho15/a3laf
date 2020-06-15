@@ -30,33 +30,6 @@ class AdAPIController extends AppBaseController {
 	 * @param Request $request
 	 * @return Response
 	 *
-	 * @SWG\Get(
-	 *      path="/ads",
-	 *      summary="Get a listing of the Ads.",
-	 *      tags={"Ad"},
-	 *      description="Get all Ads",
-	 *      produces={"application/json"},
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  type="array",
-	 *                  @SWG\Items(ref="#/definitions/Ad")
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
 	 */
 	public function index(Request $request) {
 		$ads = $this->adRepository->all(
