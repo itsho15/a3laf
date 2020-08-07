@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\UpdateUserAPIRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Token;
 use App\Repositories\UserRepository;
 use App\User;
 use Hash;
@@ -31,65 +32,140 @@ class UserAPIController extends AppBaseController {
 	 * @param Request $request
 	 * @return Response
 	 *
-	 * @SWG\Get(
-	 *      path="/users",
-	 *      summary="Get a listing of the Users.",
-	 *      tags={"User"},
-	 *      description="Get all Users",
-	 *      produces={"application/json"},
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  type="array",
-	 *                  @SWG\Items(ref="#/definitions/User")
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
 	 */
-	public function index(Request $request) {
-		$users = $this->userRepository->all(
-			$request->except(['skip', 'limit']),
-			$request->get('skip'),
-			$request->get('limit')
-		);
+	/**
+	 * @param Request $request
+	 * @return Response
+	 *
+	 */
+	public function forgot_password(Request $request) {
+		$validator = Validator::make(request()->all(), ['phone' => "required"]);
+		if ($validator->fails()) {
+			return $this->sendError($validator->errors()->first());
+		}
+		/*
+			 Check The phone number if exists
+		*/
+		$user = $this->userRepository->allQuery()->where('phone', request('phone'))->first();
 
-		return $this->sendResponse($users->tSWGrray(), 'Users retrieved successfully');
+		if (!$user) {
+			return $this->sendError('phone Not Exists In system');
+		}
+
+		$token = Token::create([
+			'user_id' => $user->id,
+		]);
+
+		if ($token->sendCode($user)) {
+			return $this->sendResponse(['code' => $token->sendCode($user)], 'Code Generated Successfully and it will be expired in 15 min , you can use this code to send it now by firebase sms');
+		}
+
+		$token->delete(); // delete token because it can't be sent
+		return $this->sendError('Unable to send verification code');
+
+	}
+
+	public function change_password() {
+		$validator = Validator::make(request()->all(), [
+			'code' => 'required',
+			'phone' => 'required',
+		]);
+
+		if ($validator->fails()) {
+			return $this->sendError($validator->errors()->first());
+		}
+		/*
+			 Check The phone number if exists
+		*/
+		$user = $this->userRepository->allQuery()->where('phone', request('phone'))->first();
+
+		if (!$user) {
+			return $this->sendError('phone Not Exists In system');
+		}
+
+		$checkToken = Token::where('code', request('code'))->where('user_id', $user->id)->first();
+
+		if (!$checkToken) {
+			return $this->sendError('Code Not Valid With This number');
+		}
+
+		/**
+		 * check if code isValid and Not Expired And Not Used Before
+		 *
+		 * isValid Method In Model Token
+		 */
+
+		if ($checkToken->isValid()) {
+			/*
+					 Set The New Password
+				*/
+			$user_updated = User::whereId($user->id)->update(['password' => bcrypt(request('new_password'))]);
+			/**
+			 * now we will change token to Used
+			 */
+
+			$checkToken->used = 1;
+			$checkToken->save();
+			$user = new UserResource(User::find($user->id));
+			return $this->sendResponse($user, 'Password Changed Successfully');
+		} else {
+			return $this->sendError('your Code Is Used Before Or Expired please');
+		}
+	}
+	/*
+		 set new password and check if old password is correct
+	*/
+	public function NewPassword(Request $request) {
+		try {
+			if (!$auth = JWTAuth::parseToken()->authenticate()) {
+				return response()->json(['user_not_found'], 404);
+			}
+		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+			return $this->sendError(['token_expired', $e->getStatusCode()]);
+		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+			return $this->sendError(['token_invalid', $e->getStatusCode()]);
+		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+			return $this->sendError(['token_absent', $e->getStatusCode()]);
+		}
+
+		$validator = Validator::make(request()->all(), [
+			'old_password' => 'required|string',
+			'new_password' => 'required|string',
+		]);
+
+		if ($validator->fails()) {
+			return $this->sendError($validator->errors());
+		}
+
+		if (!\Hash::check(request('old_password'), $auth->password)) {
+			return $this->sendError('old password incorrect');
+		} else {
+			$ChangePassword = User::whereId($auth->id)->update(['password' => bcrypt(request('new_password'))]);
+			$user = $this->userRepository->find($auth->id);
+			return $this->sendResponse(new UserResource($user), 'New Password Set successfully');
+		}
 	}
 
 	public function register(Request $request) {
 		$validator = Validator::make(request()->all(), [
 			'name' => 'required|string|max:255',
-			'email' => 'required|string|email|max:255|unique:users',
-			'password' => 'required|string|min:6|confirmed',
+			'email' => 'string|email|max:255|unique:users',
+			'password' => 'required|string|min:6',
 			'phone' => 'required|string|unique:users',
+			'type_id' => 'sometimes|nullable|integer|exists:types,id',
 			'city_id' => 'required|integer|exists:cities,id',
-			'type' => 'required|in:user,provider',
 		]);
 
 		$data = [
 			'email' => request('email'),
-			'type' => request('type'),
 			'device_id' => request('device_id'),
 			'phone' => request('phone'),
 			'name' => request('name'),
 			'city_id' => request('city_id'),
+			'type_id' => request('type_id'),
 			'lat' => request('lat'),
 			'lng' => request('lng'),
 			'password' => Hash::make(request('password')),
-			'status' => (request('type') == 'user') ? 'active' : 'pending',
 		];
 
 		if (request()->hasFile('avatar')) {
@@ -106,6 +182,10 @@ class UserAPIController extends AppBaseController {
 		}
 
 		$auth = User::create($data);
+		$role = \App\Models\Role::where('name', request('role'))->first();
+		if ($role) {
+			$auth->assignRole($role->name);
+		}
 
 		$userdata = User::find($auth->id);
 		$token = JWTAuth::fromUser($auth);
@@ -120,6 +200,11 @@ class UserAPIController extends AppBaseController {
 	}
 
 	public function authenticate(Request $request) {
+
+		$this->validate(request(), [
+			'phone' => 'required',
+			'password' => 'required',
+		]);
 		$login = request()->input('phone');
 
 		$fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
@@ -148,39 +233,6 @@ class UserAPIController extends AppBaseController {
 	 * @param int $id
 	 * @return Response
 	 *
-	 * @SWG\Get(
-	 *      path="/users/{id}",
-	 *      summary="Display the specified User",
-	 *      tags={"User"},
-	 *      description="Get User",
-	 *      produces={"application/json"},
-	 *      @SWG\Parameter(
-	 *          name="id",
-	 *          description="id of User",
-	 *          type="integer",
-	 *          required=true,
-	 *          in="path"
-	 *      ),
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  ref="#/definitions/User"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
 	 */
 	public function show($id) {
 		/** @var User $user */
@@ -198,46 +250,6 @@ class UserAPIController extends AppBaseController {
 	 * @param UpdateUserAPIRequest $request
 	 * @return Response
 	 *
-	 * @SWG\Put(
-	 *      path="/users/{id}",
-	 *      summary="Update the specified User in storage",
-	 *      tags={"User"},
-	 *      description="Update User",
-	 *      produces={"application/json"},
-	 *      @SWG\Parameter(
-	 *          name="id",
-	 *          description="id of User",
-	 *          type="integer",
-	 *          required=true,
-	 *          in="path"
-	 *      ),
-	 *      @SWG\Parameter(
-	 *          name="body",
-	 *          in="body",
-	 *          description="User that should be updated",
-	 *          required=false,
-	 *          @SWG\Schema(ref="#/definitions/User")
-	 *      ),
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  ref="#/definitions/User"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
 	 */
 	public function update(UpdateUserAPIRequest $request) {
 		try {
@@ -274,39 +286,6 @@ class UserAPIController extends AppBaseController {
 	 * @param int $id
 	 * @return Response
 	 *
-	 * @SWG\Delete(
-	 *      path="/users/{id}",
-	 *      summary="Remove the specified User from storage",
-	 *      tags={"User"},
-	 *      description="Delete User",
-	 *      produces={"application/json"},
-	 *      @SWG\Parameter(
-	 *          name="id",
-	 *          description="id of User",
-	 *          type="integer",
-	 *          required=true,
-	 *          in="path"
-	 *      ),
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  type="string"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
 	 */
 	public function destroy($id) {
 		/** @var User $user */
@@ -319,53 +298,6 @@ class UserAPIController extends AppBaseController {
 		$user->delete();
 
 		return $this->sendSuccess('User deleted successfully');
-	}
-
-	/*
-		 	add Rate to user
-	*/
-	public function Rating() {
-
-		try {
-			if (!$user = JWTAuth::parseToken()->authenticate()) {
-				return response()->json(['user_not_found'], 404);
-			}
-
-		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
-			return response()->json(['token_expired'], $e->getStatusCode());
-
-		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
-			return response()->json(['token_invalid'], $e->getStatusCode());
-
-		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-			return response()->json(['token_absent'], $e->getStatusCode());
-		}
-
-		request()->validate([
-			'rate' => 'required',
-			'user_id' => 'required|exists:users,id',
-			'comment' => 'required|string',
-		]);
-		$RateToUser = User::find(request('user_id'));
-
-		$rating = new Rating;
-		$rating->rating = request('rate');
-		$rating->comment = request('comment');
-		$rating->user_id = $user->id;
-
-		$RateToUser->ratings()->save($rating);
-
-		$averageRating = $RateToUser->averageRating;
-
-		$rated_user = $RateToUser;
-
-		return $this->sendResponse(
-			compact('averageRating', 'rated_user'),
-			__('messages.updated', ['model' => __('models/users.singular')])
-		);
-
 	}
 
 	public function getNotifications() {
@@ -405,14 +337,65 @@ class UserAPIController extends AppBaseController {
 		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
 			return $this->sendError(['token_absent', $e->getStatusCode()]);
 		}
-
 		$notification = $user->notifications()->where('id', request('id'))->first();
-
 		if (empty($notification)) {
 			return $this->sendError('notification not found or not specify to current user');
 		} else {
 			$notification->markAsRead();
 			return $this->sendSuccess('marked as read successfully');
 		}
+	}
+
+	/*
+		 	add Rate to user
+	*/
+	public function Rating() {
+
+		try {
+			if (!$user = JWTAuth::parseToken()->authenticate()) {
+				return response()->json(['user_not_found'], 404);
+			}
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+			return response()->json(['token_expired'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+			return response()->json(['token_invalid'], $e->getStatusCode());
+
+		} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+			return response()->json(['token_absent'], $e->getStatusCode());
+		}
+
+		request()->validate([
+			'rate' => 'required',
+			'user_id' => 'required|exists:users,id',
+			'comment' => 'required|string',
+		]);
+
+		$ad = User::find(request('user_id'));
+		$checkRate = Rating::where('rateable_id', request('user_id'))->where('user_id', $user->id)->first();
+
+		if ($checkRate) {
+			return $this->sendError('you rate this ad before ');
+		} else {
+			$rating = new Rating;
+			$rating->rating = request('rate');
+			$rating->comment = request('comment');
+			$rating->user_id = $user->id;
+
+			$ad->ratings()->save($rating);
+
+			$averageRating = $ad->averageRating;
+
+			$rated_ad = $ad;
+
+			return $this->sendResponse(
+				compact('averageRating', 'rated_ad'),
+				__('messages.updated', ['model' => __('models/users.singular')])
+			);
+		}
+
 	}
 }

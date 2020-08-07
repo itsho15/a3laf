@@ -53,13 +53,14 @@ class CategoryRepository extends BaseRepository {
 		$query = $this->model->newQuery();
 
 		$model = $query->findOrFail($id);
-		$model->fill($input);
 		$translations = [
 			'en' => $input['name'],
 			'ar' => $input['name_ar'],
 		];
 
 		$model->setTranslations('name', $translations);
+		$model->fill($input);
+	
 		$model->save();
 
 		return $model;

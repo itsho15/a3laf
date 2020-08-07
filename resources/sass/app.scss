@@ -1,1 +1,19 @@
-//
+// Variables
+@import "scss/variables.scss";
+
+// Components
+@import "scss/components/components.scss";
+
+// Main Style
+@import "scss/header.scss";
+@import "scss/carousel.scss";
+@import "scss/footer.scss";
+@import "scss/buttons.scss";
+@import "scss/sidebar.scss";
+@import "scss/forms.scss";
+@import "scss/content.scss";
+@import "scss/login.scss";
+
+@import "scss/single.scss";
+@import "scss/chat.scss";
+@import "scss/style.scss";

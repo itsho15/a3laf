@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Conversation;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -17,7 +18,7 @@ class User extends Authenticatable implements JWTSubject {
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'type_name', 'licenseـnumber', 'licenseـimage', 'means_of_communication', 'civil_registry', 'phone', 'email', 'password', 'status', 'type_id', 'city_id',
+		'name', 'type_name', 'license_number', 'license_image', 'avatar', 'means_of_communication', 'civil_registry', 'phone', 'email', 'password', 'status', 'type_id', 'city_id',
 	];
 
 	/**
@@ -78,8 +79,17 @@ class User extends Authenticatable implements JWTSubject {
 		return $this->belongsTo('App\Models\Type');
 	}
 
+	public function Archivechats() {
+		return Conversation::has('messages')->where('from_id', auth()->id())->orWhere('to_id', auth()->id())
+			->get();
+	}
+
 	public function comments() {
 		return $this->hasMany('App\Models\Comment');
+	}
+
+	public function messages() {
+		return $this->hasMany('App\Models\Message');
 	}
 
 	public function favorite() {
@@ -93,4 +103,9 @@ class User extends Authenticatable implements JWTSubject {
 	public function following() {
 		return $this->hasMany('App\Models\Follower', 'user_id', 'id');
 	}
+
+	public function getAvatarAttribute($value) {
+		return ($value) ? \Storage::url($value) : null;
+	}
+
 }

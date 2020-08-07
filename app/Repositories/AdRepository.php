@@ -65,7 +65,10 @@ class AdRepository extends BaseRepository {
 	}
 
 	public function update($input, $id) {
-		$input['contact_types'] = json_encode($input['contact_types']);
+	    if(isset($input['contact_types'])){
+	        $input['contact_types'] = json_encode($input['contact_types']);
+	    }
+		
 		$query = $this->model->newQuery();
 		$model = $query->findOrFail($id);
 		$model->fill($input);

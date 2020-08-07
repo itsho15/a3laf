@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\AdResource;
 class FavoriteResource extends JsonResource {
 	/**
 	 * Transform the resource into an array.
@@ -13,9 +13,10 @@ class FavoriteResource extends JsonResource {
 	 */
 	public function toArray($request) {
 		return [
-			'id' => $this->id,
-			'user' => $this->user,
-			'ad' => $this->ad,
+			//'id' => $this->id,
+			//'user' => $this->user,
+			'count' => $this->count(),
+			'ad' => new AdResource($this->ad),
 			'created_at' => $this->created_at,
 			'updated_at' => $this->updated_at,
 		];

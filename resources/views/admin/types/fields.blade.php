@@ -1,13 +1,13 @@
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('name', __('models/types.fields.name').':') !!}
-    {!! Form::text('name', (isset($type) && $type->getTranslation('name','en')) ? $type->getTranslation('name','en') : (isset($type) ) ? $type->name :null, ['class' => 'form-control']) !!}
+    {!! Form::text('name', (isset($type) && $type->getTranslation('name','en')) ? $type->getTranslation('name','en')  :null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-6">
     {!! Form::label('name', __('models/types.fields.name_ar').':') !!}
 
-    {!! Form::text('name_ar',(isset($type) && $type->getTranslation('name','ar') != null) ? $type->getTranslation('name','ar') : (isset($type) ) ? $type->name :null, ['class' => 'form-control']) !!}
+    {!! Form::text('name_ar',(isset($type) && $type->getTranslation('name','ar') != null) ? $type->getTranslation('name','ar')  :null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

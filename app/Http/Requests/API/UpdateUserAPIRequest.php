@@ -21,12 +21,11 @@ class UpdateUserAPIRequest extends APIRequest {
 	 * @return array
 	 */
 	public function rules() {
-
+       
 		$rules = [
-			'name' => 'required|string',
-			'email' => 'required|string',
-			'city_id' => 'required|integer|exists:cities,id',
-			'password' => 'sometimes|nullable|string',
+			'email' => 'sometimes|nullable|string|email|max:255|unique:users,email,'.$this->user()->id,
+			'password' => 'sometimes|nullable|string|min:6',
+			'phone' => 'sometimes|nullable|string|unique:users,phone,'.$this->user()->id,
 		];
 
 		return $rules;

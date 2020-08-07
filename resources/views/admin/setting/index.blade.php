@@ -34,7 +34,7 @@
 
                      {!! Form::open(['route' => 'admin.settings.store', 'files' => true]) !!}
                         {!! csrf_field() !!}
-
+                        
                         @if(count(config('setting_fields', [])) )
 
                             @foreach(config('setting_fields') as $section => $fields)
@@ -51,6 +51,7 @@
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-7  col-md-offset-2">
+                                               
                                                 @foreach($fields['elements'] as $field)
                                                     @includeIf('admin.setting.fields.' . $field['type'] )
                                                 @endforeach

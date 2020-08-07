@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
+    'Laravelium\\Sitemap' => array($vendorDir . '/laravelium/sitemap/src'),
     'Laracasts\\Flash' => array($vendorDir . '/laracasts/flash/src'),
     'Barryvdh' => array($vendorDir . '/barryvdh/reflection-docblock/src'),
     'Appointer\\Swaggervel' => array($vendorDir . '/appointer/swaggervel/src'),

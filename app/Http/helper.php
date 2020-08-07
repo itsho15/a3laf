@@ -126,6 +126,7 @@ if (!function_exists('lang')) {
 			return session('lang');
 		} else {
 			session()->put('lang', 'ar');
+			return 'ar';
 		}
 	}
 }
@@ -185,29 +186,27 @@ if (!function_exists('v_image')) {
 }
 
 if (!function_exists('pushNotifications')) {
-	function pushNotifications($devices_id, $title, $text, $click_action, $model) {
+	function pushNotifications($devices_id, $title, $text, $click_action, $model, $type = 'mobile', $image = '') {
 		/*api_key available in:
 		Firebase Console -> Project Settings -> CLOUD MESSAGING -> Server key*/
-
 		$data = [
-			"registration_ids" => $devices_id,
+			'registration_ids' => $devices_id,
 			"notification" => [
 				"title" => $title,
 				"text" => $text,
 				"sound" => "default",
 				"badge" => 0,
 				"click_action" => $click_action,
-				"image" => "",
+				"image" => $image,
 			],
 			"priority" => "high",
 			'data' => [
 				'model' => $model,
 			],
 		];
-
 		$data_string = json_encode($data);
 
-		$headers = array('Authorization:key=AAAAISGrvmg:APA91bH_ovjHmzCDDlbPTG8otagZbdZ6r6i5mRPZIFCh7JiEO7E1UboCK88dJOBJ_E9FKRMArVsv7JNK8EsRs9vnInb9HQ1JeyVF36hp521zd81Izot4RiFSaCbST_A0bPVLwmeH3F-k', 'Content-Type:application/json');
+		$headers = array('Authorization:key=AAAAuEUD9G4:APA91bGXWAdL6clloiiyOelXd37SShEQON3-GVcNO9nOrJi0TM59PfmkuNwG9vmGy-H9dRVc3lygbXt_YNA0t3v5iYC-Bj9uwR4nKR6CFWRWD53qBKVmYiK6T846el1M-fyj68M8cDdk', 'Content-Type:application/json');
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
 		curl_setopt($ch, CURLOPT_POST, true);
@@ -219,5 +218,16 @@ if (!function_exists('pushNotifications')) {
 
 		return $result;
 
+	}
+}
+
+if (!function_exists('contains')) {
+	function contains($str, array $arr) {
+		foreach ($arr as $a) {
+			if (stripos($str, $a) !== false) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -1,0 +1,27 @@
+// Extra large devices (large desktops, 1200px and up)
+@mixin m1440 {
+  @media (max-width: 1440px) {
+    @content;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@mixin m992 {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin m768 {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin m576 {
+  @media (max-width: 576px) {
+    @content;
+  }
+}

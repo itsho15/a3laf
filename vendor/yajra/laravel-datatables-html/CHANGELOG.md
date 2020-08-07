@@ -8,6 +8,14 @@
 
 ## CHANGELOG
 
+### v4.30.0 - 06-18-2020
+
+- Add button align property setter.
+
+### v4.29.0 - 06-17-2020
+
+- Add column responsive priority setter. [#131], credits to @SamDeimos.
+
 ### v4.28.0 - 06-10-2020
 
 - Allow eloquent builder instance on BelongsTo model field.
@@ -654,6 +662,7 @@ To `created_at` with title `Created At`
 [#124]: https://github.com/yajra/laravel-datatables-html/pull/124
 [#117]: https://github.com/yajra/laravel-datatables-html/pull/117
 [#125]: https://github.com/yajra/laravel-datatables-html/pull/125
+[#131]: https://github.com/yajra/laravel-datatables-html/pull/131
 
 [#3]: https://github.com/yajra/laravel-datatables-html/issues/3
 [#58]: https://github.com/yajra/laravel-datatables-html/issues/58

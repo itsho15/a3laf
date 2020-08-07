@@ -1,132 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl" class="no-js">
+<!-- Begin Head -->
 <head>
-  <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="hisham hilmy">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('') }}/assets/images/favicon.png">
-    <title>Elite Admin Template - The Ultimate Multipurpose admin template</title>
+    <meta charset="utf-8">
+    <title>أعلاف - تسجيل الدخول</title>
+    <meta name="description" content="منصة الكترونية تخدم المزارعين والمستثمرين بقطاع الأعلاف الخضراء والأعلاف المركبة وأصحاب المواشي لـ ( عرض- طلب ) الأعلاف المحلية و المستوردة">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- page css -->
-    <link href="{{ url('design/adminlte/assets/') }}/dist/css/pages/login-register-lock.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="{{ url('design/adminlte/assets/') }}/dist/css/style.min.css" rel="stylesheet">
+    <!-- ================= Favicon ================== -->
+    <link rel="shortcut icon" href="{{ url('dist/img/favicon.png') }}">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <!-- ///////////////////\\\\\\\\\\\\\\\\\\\ -->
+    <!-- ********** Resources CSS ********** -->
+    <!-- \\\\\\\\\\\\\\\\\\\/////////////////// -->
+
+    <!-- ============== Bootstrap v4.2.1 ============== -->
+    <link rel="stylesheet" href="{{ url('dist/css/bootstrap-rtl.min.css') }}" />
+
+    <!-- ============== Resource style ============== -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+
+    <!-- ============== Lightslider ============== -->
+    <link rel="stylesheet" href="{{ asset('dist/css/lightslider.min.css') }}" />
+
 </head>
-<body>
 
-     <div class="preloader">
-        <div class="loader">
-            <div class="loader__figure"></div>
-            <p class="loader__label">Elite admin</p>
-        </div>
-    </div>
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <section id="wrapper" class="login-register login-sidebar" style="background-image:url({{ url('') }}/assets/images/background/login-register.jpg);">
-        <div class="login-box card">
-            <div class="card-body">
-                 <form method="post" action="{{ url('/login') }}"  class="form-horizontal form-material" id="loginform">
-                    {!! csrf_field() !!}
-                    <a href="javascript:void(0)" class="text-center db"><img src="{{ url('') }}/assets/images/logo-icon.png" alt="Home" /><br/><img src="{{ url('') }}/assets/images/logo-text.png" alt="Home" /></a>
-                    <div class="form-group m-t-40 has-feedback {{ $errors->has('email') ? ' has-error' : '' }}" >
-                        <div class="col-xs-12">
-                            <input class="form-control" type="email" required="" name="email" value="{{ old('email') }}" placeholder="Email">
+<body id="to_top">
 
-                            @if ($errors->has('email'))
-                                <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-                        <div class="col-xs-12">
-                            <input class="form-control" type="password" required="" placeholder="Password" name="password">
-                            @if ($errors->has('password'))
-                                <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1" name="remember">
-                                <label class="custom-control-label" for="customCheck1">Remember me</label>
-                                <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group text-center m-t-20">
-                        <div class="col-xs-12">
-                            <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" type="submit">Log In</button>
-                        </div>
-                    </div>
+    <div class="login">
+        <div class="container">
+            <div class="row align-items-center">
 
+                <div class="col-md-5">
+                    <div class="login-inner">
+                        <img class="mb-3" src="dist/svg/logo-mobile.svg" alt="logo" />
+                        <h2 class="title mb-4">@lang('front.welcome_login')</h2>
 
-                </form>
-                <form class="form-horizontal" id="recoverform"   method="post" action="{{ url('/password/email') }}">
+                    <form method="post" action="{{ url('/login') }}"  class="login-form from-group" id="loginform">
                         {!! csrf_field() !!}
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <h3>Recover Password</h3>
-                            <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
+                            <div class="mb-4">
+                                <label>@lang('front.email')</label>
+                                <div class="lemail form-group m-t-40 has-feedback {{ $errors->has('email') ? ' has-error' : '' }}"  >
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="text" required name="email" value="{{ old('email') }}"  class="form-control" placeholder="{{ trans('front.loginby_email_or_phone') }}">
+
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
+
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label>@lang('front.password')</label>
+                                <div class="lpassword has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <i id="show_password" class="far fa-eye"></i>
+
+                                    <input class="password-input form-control" type="password" required="" placeholder="{{ trans('front.password') }}" name="password">
+                                    @if ($errors->has('password'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+
+                                </div>
+                            </div>
+                           <div class="d-flex justify-content-between flex-remove">
+                                <button class="btn btn-primary"> @lang('front.login')</button>
+                                <a href="{{ route('password.request') }}" class="forget-password">@lang('front.forget_password')</a>
+                            </div>
+                        </form>
+
+                        <div class="mt-4">
+                            <a href="{{ url('register') }}" class="no-account">@lang('front.no_account')</a>
                         </div>
+
                     </div>
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <input class="form-control" type="text" name="email" value="{{ old('email') }}" required="" placeholder="Email">
-                            @if ($errors->has('email'))
-                                <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group text-center m-t-20">
-                        <div class="col-xs-12">
-                            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
+
+                <div class="col"></div>
             </div>
         </div>
-    </section>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
+    </div>
 
-  <script src="{{ url('') }}/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
- <script src="{{ url('') }}/assets/node_modules/popper/popper.min.js"></script>
- <script src="{{ url('') }}/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-        $(function() {
-            $(".preloader").fadeOut();
-        });
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip()
-        });
-        // ==============================================================
-        // Login and Recover Password
-        // ==============================================================
-        $('#to-recover').on("click", function() {
-            $("#loginform").slideUp();
-            $("#recoverform").fadeIn();
-        });
-    </script>
+
+    <!-- ///////////////////\\\\\\\\\\\\\\\\\\\ -->
+    <!-- ********** Resources jQuery ********** -->
+    <!-- \\\\\\\\\\\\\\\\\\\/////////////////// -->
+
+    <!-- * Libraries jQuery 3.3.1 * -->
+    <script src="dist/js/jquery-3.3.1.slim.min.js"></script>
+
+    <!-- * Libraries jQuery and Bootstrap - Popper * -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <!-- * Libraries jQuery and Bootstrap - Be careful to not remove them * -->
+    <script src="dist/js/bootstrap.min.js"></script>
+
+    <!-- * Fontawesome * -->
+    <script src="https://kit.fontawesome.com/b03bc3a15c.js" crossorigin="anonymous"></script>
+
+    <!-- Main JS -->
+    <script src="dist/js/init.js"></script>
+
 </body>
 </html>

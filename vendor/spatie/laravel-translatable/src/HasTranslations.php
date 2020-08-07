@@ -9,6 +9,7 @@ use Spatie\Translatable\Exceptions\AttributeIsNotTranslatable;
 
 trait HasTranslations {
 	public function getAttributeValue($key) {
+
 		if (!$this->isTranslatableAttribute($key)) {
 			return parent::getAttributeValue($key);
 		}
@@ -27,11 +28,11 @@ trait HasTranslations {
 		return $this->setTranslation($key, $this->getLocale(), $value);
 	}
 
-	public function translate(string $key, string $locale = '', bool $useFallbackLocale = true): string {
+	public function translate($key, $locale = '', $useFallbackLocale = true): string {
 		return $this->getTranslation($key, $locale, $useFallbackLocale);
 	}
 
-	public function getTranslation(string $key, string $locale, bool $useFallbackLocale = true) {
+	public function getTranslation($key, $locale, $useFallbackLocale = true) {
 		$locale = $this->normalizeLocale($key, $locale, $useFallbackLocale);
 
 		$translations = $this->getTranslations($key);
@@ -45,15 +46,15 @@ trait HasTranslations {
 		return $translation;
 	}
 
-	public function getTranslationWithFallback(string $key, string $locale): string {
+	public function getTranslationWithFallback($key, $locale): string {
 		return $this->getTranslation($key, $locale, true);
 	}
 
-	public function getTranslationWithoutFallback(string $key, string $locale) {
+	public function getTranslationWithoutFallback($key, $locale) {
 		return $this->getTranslation($key, $locale, false);
 	}
 
-	public function getTranslations(string $key = null): array
+	public function getTranslations($key = null): array
 	{
 		if ($key !== null) {
 			$this->guardAgainstNonTranslatableAttribute($key);
@@ -94,7 +95,7 @@ trait HasTranslations {
 		return $this;
 	}
 
-	public function setTranslations(string $key, array $translations): self{
+	public function setTranslations($key, $translations): self{
 		$this->guardAgainstNonTranslatableAttribute($key);
 
 		foreach ($translations as $locale => $translation) {
@@ -104,7 +105,7 @@ trait HasTranslations {
 		return $this;
 	}
 
-	public function forgetTranslation(string $key, string $locale): self{
+	public function forgetTranslation($key, $locale): self{
 		$translations = $this->getTranslations($key);
 
 		unset(
@@ -117,7 +118,7 @@ trait HasTranslations {
 		return $this;
 	}
 
-	public function forgetAllTranslations(string $locale): self{
+	public function forgetAllTranslations($locale): self{
 		collect($this->getTranslatableAttributes())->each(function (string $attribute) use ($locale) {
 			$this->forgetTranslation($attribute, $locale);
 		});
@@ -125,12 +126,12 @@ trait HasTranslations {
 		return $this;
 	}
 
-	public function getTranslatedLocales(string $key): array
+	public function getTranslatedLocales($key): array
 	{
 		return array_keys($this->getTranslations($key));
 	}
 
-	public function isTranslatableAttribute(string $key): bool {
+	public function isTranslatableAttribute($key): bool {
 		return in_array($key, $this->getTranslatableAttributes());
 	}
 
@@ -146,7 +147,7 @@ trait HasTranslations {
 		}
 	}
 
-	protected function normalizeLocale(string $key, string $locale, bool $useFallbackLocale): string {
+	protected function normalizeLocale($key, $locale, $useFallbackLocale): string {
 		if (in_array($locale, $this->getTranslatedLocales($key))) {
 			return $locale;
 		}
@@ -166,7 +167,7 @@ trait HasTranslations {
 		return $locale;
 	}
 
-	protected function getLocale(): string {
+	protected function getLocale() {
 		return config('app.locale');
 	}
 

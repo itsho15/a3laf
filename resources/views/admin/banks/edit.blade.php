@@ -30,7 +30,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                {!! Form::model($bank, ['route' => ['admin.banks.update', $bank->id], 'method' => 'patch']) !!}
+                                {!! Form::model($bank, ['route' => ['admin.banks.update', $bank->id], 'method' => 'patch','files' => true]) !!}
 
                                     @include('admin.banks.fields')
 

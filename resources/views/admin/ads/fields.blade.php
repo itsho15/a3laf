@@ -8,7 +8,7 @@
 <!-- Price Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('price', __('models/ads.fields.price').':') !!}
-    {!! Form::text('price', null, ['class' => 'form-control']) !!}
+    {!! Form::number('price', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Body Field -->
@@ -20,7 +20,7 @@
 <!-- Contact Types Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('contact_types', __('models/ads.fields.contact_types').':') !!}
-    {!! Form::select('contact_types[]', ['sell'=>'sell','buy'=>'buy'],old('contact_types'), ['multiple'=>'multiple','class' => 'form-control select2']) !!}
+    {!! Form::select('contact_types[]', ['phone'=>'phone','chat'=>'chat'],old('contact_types'), ['multiple'=>'multiple','class' => 'form-control select2']) !!}
 </div>
 
 <!-- City Id Field -->
@@ -41,24 +41,34 @@
     {!! Form::select('category_id', App\Models\Category::pluck('name','id'),old('category_id'), ['class' => 'form-control']) !!}
 </div>
 
-
 <!-- Primary Image Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12">
     {!! Form::label('images', __('models/ads.fields.images').':') !!}
+     @if(isset($ad))
+    <div class="dropzone" id="dropzonefileUpload" > </div>
+    @else
     {!! Form::file('images[]',['multiple'=>true,'class'=>'form-control']) !!}
+    @endif
 </div>
 
 <!-- Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('status', __('models/ads.fields.status').':') !!}
-    {!! Form::select('status', ['live', 'sold', 'canceled', 'pending'],old('status'), ['class' => 'form-control']) !!}
+    {!! Form::select('status', ['live' =>'live', 'sold'=>'sold', 'canceled'=>'canceled', 'pending'=>'pending'],old('status'), ['class' => 'form-control']) !!}
 </div>
 
 <!-- Ad Type Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ad_type', __('models/ads.fields.ad_type').':') !!}
-    {!! Form::select('ad_type', ['sell', 'buy'],old('status'), ['class' => 'form-control']) !!}
+    {!! Form::select('ad_type', ['sell'=>trans('front.sell_type'), 'buy'=>trans('front.buy_type')],old('ad_type'), ['class' => 'form-control']) !!}
 </div>
+
+@if(isset($ad))
+<!-- Ad Type Field -->
+<div class="form-group col-sm-12">
+    <a href="{{ url('ads/'.$ad->id.'/'.str_slug($ad->name,'-')) }}" class="btn btn-info" target="_blank">@lang('front.preview_ad')</a>
+</div>
+@endif
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

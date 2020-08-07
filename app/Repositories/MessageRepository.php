@@ -87,6 +87,10 @@ class MessageRepository extends BaseRepository {
 		}
 
 		$userTo = User::find($tous[0]);
+		$oldnotificationsMessage = $userTo->notifications()->where('type', 'App\Notifications\NewMessage')->where('data->conversation_id', $input['conversation_id'])->pluck('id');
+
+		$deleteOld = $userTo->notifications()->whereIn('id', $oldnotificationsMessage)->delete();
+
 		$userTo->notify(new NewMessage($model));
 
 		pushNotifications($userTo->device_id, 'Message', 'new message from ' . $model->user_name, 'newMessage', $model);

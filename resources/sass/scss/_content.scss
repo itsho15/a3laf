@@ -1,0 +1,250 @@
+.content-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.content-box {
+    margin-bottom: 30px;
+
+    @include m992 {
+        padding-right: 7.5px;
+        padding-left: 7.5px;
+        margin-bottom: 15px;
+    }
+
+    .content-card {
+        background-color: #fff;
+        border-radius: 5px;
+        overflow: hidden;
+        transition: transform .2s;
+
+        &:hover {
+            transform: scale(1.050);
+        }
+    }
+}
+
+.content-thumb {
+    position: relative;
+    overflow: hidden;
+
+    img {
+        transition: transform .2s;
+    }
+
+    .like {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: #fff;
+    }
+}
+
+.content-meta {
+    padding: 20px 15px;
+
+    .dnone {
+        @include m992 {
+            display: block !important;
+
+            span {
+                display: inline-block;
+            }
+        }
+    }
+
+    .meta-date {
+        color: #B8B8B8;
+        font-size: 12px;
+
+        i {
+            margin-left: 3px;
+        }
+    }
+
+    .meta-status {
+        font-size: 12px;
+        background-color: #eee;
+        border-radius: 3px;
+        color: #ccc;
+        padding: 2px 5px;
+    }
+
+    .ongoing {
+        color: $main;
+        background-color: #E5F1EB;
+    }
+
+    .sold {
+        color: #C60606;
+        background-color: #F9E5E5;
+    }
+
+    .meta-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin: 10px 0;
+    }
+
+    .meta-price {
+        font-size: 14px;
+
+        span {
+            color: $main;
+            font-size: 16px
+        }
+    }
+}
+
+/* List */
+.content-list {
+    -webkit-box-flex: inherit;
+    -ms-flex: inherit;
+    flex: inherit;
+    max-width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+
+
+    .content-card {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 5px;
+
+        @include m992 {
+            display: inherit !important;
+        }
+    }
+
+    .content-thumb {
+        flex: 0 0 25%;
+        width: 25%;
+        border-radius: 0 5px 5px 0;
+
+        @include m992 {
+            flex: 0 0 100%;
+            width: 100%;
+            border-radius: 5px 5px 0 0;
+        }
+    }
+
+    .content-meta {
+        flex: 0 0 74%;
+        width: 74%;
+
+        @include m992 {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        .meta-title {
+            margin: 0;
+        }
+
+        .meta-info {
+            font-size: 12px;
+            font-weight: 300;
+            color: #888;
+
+            i {
+                margin-left: 3px;
+            }
+        }
+
+        .star-rating {
+            font-size: 12px;
+            color: $main;
+        }
+    }
+}
+
+/* Pagination */
+.mpagination {
+
+    .pagination {
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .page-item {
+        background-color: transparent;
+        margin-left: 5px;
+
+        .page-link {
+            background-color: transparent;
+            border: 0px !important;
+            width: 34px;
+            height: 34px;
+            line-height: 32px;
+            border-radius: 100%;
+            padding: 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #222;
+
+            &:hover {
+                background-color: $main !important;
+                color: #fff !important;
+            }
+        }
+    }
+
+    .active a {
+        background-color: $main !important;
+        color: #fff !important;
+    }
+
+    .disabled a {
+        color: #ccc !important;
+    }
+}
+
+
+.content {
+    .breadcrumb {
+        padding: 0;
+        background-color: transparent;
+        font-size: 14px;
+    }
+
+    .order {
+        font-size: 14px;
+
+        @include m992 {
+            margin-top: 10px;
+        }
+
+        span {
+            margin-left: 10px;
+        }
+
+        a {
+            margin-left: 5px;
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #777;
+            font-weight: 300;
+        }
+
+        a:hover,
+        .active {
+            color: $main;
+            background-color: #E5F1EB;
+        }
+    }
+
+    .categoey-head {
+        @include m992 {
+            display: block !important;
+        }
+    }
+}

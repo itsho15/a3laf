@@ -49,6 +49,7 @@ class Message extends Model {
 	}
 
 	public function getContentAttribute($content) {
+		//$has_link = stristr($string, 'http://') ?: stristr($string, 'https://');
 		return ($this->type == 'image' || $this->type == 'voice') ? \Storage::url($content) : $content;
 	}
 

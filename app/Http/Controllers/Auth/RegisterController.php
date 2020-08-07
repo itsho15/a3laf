@@ -27,7 +27,7 @@ class RegisterController extends Controller {
 	 *
 	 * @var string
 	 */
-	protected $redirectTo = 'admin/home';
+	protected $redirectTo = 'admin';
 
 	/**
 	 * Create a new controller instance.
@@ -46,9 +46,11 @@ class RegisterController extends Controller {
 	 */
 	protected function validator(array $data) {
 		return Validator::make($data, [
-			'name' => ['required', 'string', 'max:255'],
-			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-			'password' => ['required', 'string', 'min:8', 'confirmed'],
+			'name' => 'required|string|max:255',
+			'email' => 'string|email|max:255|unique:users',
+			'password' => 'required|string|min:6|confirmed',
+			'phone' => 'required|string|unique:users',
+			'type_id' => 'sometimes|nullable|integer|exists:types,id',
 		]);
 	}
 
@@ -59,10 +61,15 @@ class RegisterController extends Controller {
 	 * @return \App\User
 	 */
 	protected function create(array $data) {
-		return User::create([
-			'name' => $data['name'],
-			'email' => $data['email'],
-			'password' => Hash::make($data['password']),
-		]);
+		$data['password'] = Hash::make($data['password']);
+		return User::create($data);
+	}
+
+	protected function redirectTo() {
+		if ($user->hasRole('admin')) {
+			return redirect('admin');
+		} else {
+			return redirect('/');
+		}
 	}
 }

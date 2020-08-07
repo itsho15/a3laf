@@ -1,0 +1,173 @@
+@font-face {
+    font-family: 'Montserrat-Arabic';
+    src: url('../fonts/Montserrat-Arabic-SemiBold.woff2') format('woff2'),
+        url('../fonts/Montserrat-Arabic-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat-Arabic';
+    src: url('../fonts/Montserrat-Arabic-Medium.woff2') format('woff2'),
+        url('../fonts/Montserrat-Arabic-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat-Arabic';
+    src: url('../fonts/Montserrat-Arabic-Regular.woff2') format('woff2'),
+        url('../fonts/Montserrat-Arabic-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat-Arabic';
+    src: url('../fonts/Montserrat-Arabic-Bold.woff2') format('woff2'),
+        url('../fonts/Montserrat-Arabic-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat-Arabic';
+    src: url('../fonts/Montserrat-Arabic-Light.woff2') format('woff2'),
+        url('../fonts/Montserrat-Arabic-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    position: relative;
+    line-height: 1.7;
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: $font1;
+    letter-spacing: -0.3px;
+}
+
+.owl-stage {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: flex;
+}
+
+.mobile-first {
+    @include m992 {
+        order: -1;
+    }
+}
+
+.dnone {
+    @include m992 {
+        display: block !important;
+    }
+}
+
+#content {
+    flex: 1 0 auto;
+}
+
+.content-inner {
+    padding: 120px 0;
+
+    @include m992 {
+        padding: 80px 0;
+    }
+}
+
+.site-footer {
+    flex-shrink: 0;
+}
+
+a {
+    color: #111;
+    @include shift(all, .2s, linear);
+
+    &:hover {
+        text-decoration: none;
+        color: $main;
+    }
+}
+
+.container-440 {
+    max-width: 440px
+}
+
+.container-540 {
+    max-width: 540px
+}
+
+.container-640 {
+    max-width: 640px
+}
+
+.container-740 {
+    max-width: 740px
+}
+
+.container-840 {
+    max-width: 840px
+}
+
+.container-940 {
+    max-width: 940px
+}
+
+.container-1200 {
+    max-width: 1200px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.mb0 {
+    margin-bottom: 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+}
+
+/* Image Place holder */
+.place_holder {
+    overflow: hidden;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolder;
+    animation-timing-function: linear;
+    background: #F6F6F6;
+    background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+    background-size: 1000px 1000px;
+}
+
+@keyframes placeHolder {
+    0% {
+        background-position: -468px 0
+    }
+
+    100% {
+        background-position: 468px 0
+    }
+}

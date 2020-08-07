@@ -15,6 +15,7 @@ class BankResource extends JsonResource {
 		return [
 			'id' => $this->id,
 			'name' => $this->name,
+			'image' => ($this->image) ? \Storage::url($this->image) : '',
 			'accounts' => $this->accounts,
 			'created_at' => $this->created_at,
 			'updated_at' => $this->updated_at,

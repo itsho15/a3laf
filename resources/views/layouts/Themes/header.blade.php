@@ -11,7 +11,7 @@
 <meta name="robots" content="index,follow" />
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16" href="{{ url('design/adminlte') }}/assets/images/favicon.png">
-<title>Elite Admin Template - The Ultimate Multipurpose admin template</title>
+<title>@lang('front.namewebsite')</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <!-- Date picker plugins css -->
@@ -27,6 +27,7 @@
 <!-- Dashboard 1 Page CSS -->
 <link href="{{ url('design/adminlte/assets/') }}/dist/rtl/css/pages/dashboard1.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Cairo:300,400&amp;subset=arabic,latin-ext" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url('design/adminlte/assets/') }}/node_modules/dropify/dist/css/dropify.min.css">
   <style type="text/css">
     html,body ,h1,h2,h3,h4,h5,h6{
       font-family: 'Cairo', sans-serif;
@@ -73,14 +74,14 @@
 @yield('css')
 </head>
 
-<body class="skin-default fixed-layout ">
+<body class="fixed-layout skin-green-dark">
 <!-- ============================================================== -->
 <!-- Preloader - style you can find in spinners.css -->
 <!-- ============================================================== -->
 <div class="preloader">
 <div class="loader">
     <div class="loader__figure"></div>
-    <p class="loader__label">Elite admin</p>
+    <p class="loader__label">@lang('front.namewebsite')</p>
 </div>
 </div>
 <!-- ============================================================== -->
@@ -97,19 +98,9 @@
         <!-- ============================================================== -->
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ aurl('/') }}">
-                <!-- Logo icon --><b>
-                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                    <!-- Dark Logo icon -->
-                    <img src="{{ url('design/adminlte') }}/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
-                    <!-- Light Logo icon -->
-                    <img src="{{ url('design/adminlte') }}/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-                </b>
-                <!--End Logo icon -->
-                <!-- Logo text --><span>
-                 <!-- dark Logo text -->
-                 <img src="{{ url('design/adminlte') }}/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                 <!-- Light Logo text -->
-                 <img src="{{ url('design/adminlte') }}/assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
+                <img src="{{ url('dist/svg/logo-mobile.svg') }}" alt="homepage" class="light-logo" height="55px" />
+
+                 </a>
         </div>
         <!-- ============================================================== -->
         <!-- End Logo -->

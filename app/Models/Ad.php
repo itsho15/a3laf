@@ -1,8 +1,11 @@
 <?php
 namespace App\Models;
 use Eloquent as Model;
+use JWTAuth;
+use willvincent\Rateable\Rateable;
 
 class Ad extends Model {
+	use Rateable;
 	public $fillable = [
 		'name',
 		'body',
@@ -90,4 +93,18 @@ class Ad extends Model {
 		return $this->hasMany(Comment::class);
 	}
 
+	public function isFav($guard = 'api') {
+		try {
+			$user = auth($guard)->user();
+			if ($user) {
+				$getFavOfUser = $user->favorite()->where('ad_id', $this->id)->first();
+				return ($getFavOfUser) ? true : false;
+			} else {
+				return false;
+			}
+
+		} catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+			return false;
+		}
+	}
 }

@@ -1,21 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-// use App\File;
+
 use App\Models\File;
+use Image;
 use Storage;
 
 class Upload extends Controller {
-
-	/*
-		'name',
-		'size',
-		'file',
-		'path',
-		'full_file',
-		'mime_type',
-		'file_type',
-		'relation_id',
-	*/
 
 	public static function upload($data = []) {
 
@@ -44,12 +34,17 @@ class Upload extends Controller {
 
 				foreach ($file as $key => $singleimage) {
 
+					$watermark = Image::make('dist/img/Logo.png')
+						->resize(100, 100);
+					$photo = Image::make($singleimage)
+						->resize(500, 350)->insert($watermark, 'bottom-right', 10, 10)->encode('jpg');
+
 					$size = $singleimage->getSize();
 					$mime_type = $singleimage->getMimeType();
 					$name = $singleimage->getClientOriginalName();
 					$hashname = $singleimage->hashName();
 
-					$singleimage->store($data['path']);
+					Storage::put($data['path'] . '/' . $hashname, $photo);
 
 					$add = File::create([
 						'name' => $name,

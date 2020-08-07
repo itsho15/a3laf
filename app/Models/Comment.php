@@ -1,49 +1,9 @@
 <?php
 
 namespace App\Models;
-
 use Eloquent as Model;
 
 /**
- * @SWG\Definition(
- *      definition="Comment",
- *      required={"body", "user_id", "ad_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="body",
- *          description="body",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="user_id",
- *          description="user_id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="ad_id",
- *          description="ad_id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
- *      )
- * )
  */
 class Comment extends Model {
 
@@ -88,5 +48,4 @@ class Comment extends Model {
 	public function Ad() {
 		return $this->hasOne(Ad::class, 'id', 'ad_id');
 	}
-
 }

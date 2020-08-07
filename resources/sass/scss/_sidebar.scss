@@ -1,0 +1,48 @@
+.sidebar {
+    background-color: #F6F6F6;
+    height: 100%;
+    padding: 0 15px;
+    
+    .sidebar-inner {
+            background-color: #F6F6F6;
+    height: 100%;
+    }
+
+    .widget {
+        padding-top: 30px;
+
+        .widget-title {
+            font-size: 16px;
+            font-weight: 500;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 14px;
+            padding-right: 30px;
+        }
+
+        .checkbox-container input {
+            background-color: transparent;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: $main;
+            border: 1px solid $main;
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            border: 1px solid $main;
+        }
+
+        .count {
+            font-size: 12px;
+            color: #777;
+            font-weight: 300;
+            padding: 3px 0;
+        }
+    }
+}

@@ -16,6 +16,11 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('conversation.{id}', function ($user, $id) {
-	return \App\Models\Conversation::where('to_id', auth()->user()->id)->where('id', $id)->first()
-	|| \App\Models\Conversation::where('from_id', auth()->user()->id)->where('id', $id)->first();
+	return \App\Models\Conversation::where('to_id', auth()->user()->id)->first()
+	|| \App\Models\Conversation::where('from_id', auth()->user()->id)->first();
+});
+
+Broadcast::channel('chat', function ($user) {
+	return \App\Models\Conversation::where('to_id', $user->id)->first()
+	|| \App\Models\Conversation::where('from_id', $user->id)->first();
 });

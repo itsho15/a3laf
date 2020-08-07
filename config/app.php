@@ -53,7 +53,7 @@ return [
 	*/
 
 	'url' => env('APP_URL', 'http://localhost'),
-
+	'firebase_server_key' => env('FIREBASE_SERVER_KEY'),
 	'asset_url' => env('ASSET_URL', null),
 
 	/*
@@ -80,7 +80,7 @@ return [
 		    |
 	*/
 
-	'locale' => 'en',
+	'locale' => 'ar',
 
 	/*
 		    |--------------------------------------------------------------------------
@@ -246,6 +246,12 @@ return [
 		'Up' => App\Http\Controllers\Upload::class,
 		'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
 		'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+		'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+		'SEOMeta' => Artesaos\SEOTools\Facades\SEOMeta::class,
+		'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+		'Twitter' => Artesaos\SEOTools\Facades\TwitterCard::class,
+		'JsonLd' => Artesaos\SEOTools\Facades\JsonLd::class,
+		'JsonLdMulti' => Artesaos\SEOTools\Facades\JsonLdMulti::class,
 
 	],
 

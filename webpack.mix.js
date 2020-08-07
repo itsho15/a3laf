@@ -14,7 +14,10 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
-mix.styles([
-    'public/css/vendor/normalize.css',
-    'public/css/vendor/videojs.css'
-], 'public/css/all.css');
+mix.combine([
+    'public/dist/js/bootstrap.min.js',
+    'public/dist/js/sticky-sidebar.min.js',
+    'public/dist/js/lightslider.min.js',
+    'public/dist/js/owl.js',
+    'public/dist/js/init.js',
+], 'public/js/all.js');

@@ -43,7 +43,7 @@ class FavoriteRepository extends BaseRepository {
 		} else {
 			$input['user_id'] = JWTAuth::user()->id;
 		}
-		$model = $this->model->create($input);
+		$model = $this->model->firstOrCreate($input);
 		$model->save();
 		return $model;
 	}

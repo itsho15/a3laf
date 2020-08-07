@@ -1,7 +1,7 @@
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('name', __('models/cities.fields.name').':') !!}
-    {!! Form::text('name', (isset($city) && $city->getTranslation('name','en')) ? $city->getTranslation('name','en') : (isset($city) )? $city->name : null, ['class' => 'form-control']) !!}
+    {!! Form::text('name', (isset($city) && $city->getTranslation('name','en')) ? $city->getTranslation('name','en') : null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-6">

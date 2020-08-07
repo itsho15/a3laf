@@ -1,87 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl" class="no-js">
+<!-- Begin Head -->
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>InfyOm Laravel Generator</title>
+    <title>أعلاف - تسجيل الدخول</title>
+    <meta name="description" content="منصة الكترونية تخدم المزارعين والمستثمرين بقطاع الأعلاف الخضراء والأعلاف المركبة وأصحاب المواشي لـ ( عرض- طلب ) الأعلاف المحلية و المستوردة">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- ================= Favicon ================== -->
+    <link rel="shortcut icon" href="{{ url('dist/img/favicon.png') }}">
 
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- ///////////////////\\\\\\\\\\\\\\\\\\\ -->
+    <!-- ********** Resources CSS ********** -->
+    <!-- \\\\\\\\\\\\\\\\\\\/////////////////// -->
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- ============== Bootstrap v4.2.1 ============== -->
+    <link rel="stylesheet" href="{{ url('dist/css/bootstrap-rtl.min.css') }}" />
 
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- ============== Resource style ============== -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
 
-    <!-- Theme style -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/skins/_all-skins.min.css">
-
-    <!-- iCheck -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/_all.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- ============== Lightslider ============== -->
+    <link rel="stylesheet" href="{{ asset('dist/css/lightslider.min.css') }}" />
 
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
-    </div>
 
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Enter Email to reset password</p>
+<body id="to_top">
 
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
+    <div class="login">
+        <div class="container">
+            <div class="row align-items-center">
 
-        <form method="post" action="{{ url('/password/email') }}">
-            {!! csrf_field() !!}
+                <div class="col-md-5">
+                    <div class="login-inner">
+                        <img class="mb-3" src="{{ url('dist/svg/logo-mobile.svg') }}" alt="logo" />
+                        <h2 class="title mb-4">@lang('front.welcome_login')</h2>
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
 
-            <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-                @endif
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary pull-right">
-                        <i class="fa fa-btn fa-envelope"></i> Send Password Reset Link
-                    </button>
+                        <form method="post" action="{{ url('/password/email') }}">
+                            {!! csrf_field() !!}
+                            <div class="mb-4">
+                                <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
+                                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                             </div>
+                            <div class="d-flex justify-content-between flex-remove">
+                                <button type="submit" class="btn btn-primary pull-right">
+                                        <i class="fa fa-btn fa-envelope"></i>@lang('front.Reset_Password_text')
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-between flex-remove mt-3">
+                                    <a href="{{ url('login') }}" class="btn btn-primary">@lang('front.login')</a>
+                                    <a href="{{ url('register') }}" class="no-account">@lang('front.no_account')</a>
+                             </div>
+                        </form>
+                    </div>
                 </div>
+
+                <div class="col"></div>
             </div>
-
-        </form>
-
+        </div>
     </div>
-    <!-- /.login-box-body -->
-</div>
-<!-- /.login-box -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- AdminLTE App -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script>
+    <!-- ///////////////////\\\\\\\\\\\\\\\\\\\ -->
+    <!-- ********** Resources jQuery ********** -->
+    <!-- \\\\\\\\\\\\\\\\\\\/////////////////// -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+    <!-- * Libraries jQuery 3.3.1 * -->
+    <script src="dist/js/jquery-3.3.1.slim.min.js"></script>
+
+    <!-- * Libraries jQuery and Bootstrap - Popper * -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <!-- * Libraries jQuery and Bootstrap - Be careful to not remove them * -->
+    <script src="dist/js/bootstrap.min.js"></script>
+
+    <!-- * Fontawesome * -->
+    <script src="https://kit.fontawesome.com/b03bc3a15c.js" crossorigin="anonymous"></script>
+
+    <!-- Main JS -->
+    <script src="dist/js/init.js"></script>
+
 </body>
+
 </html>

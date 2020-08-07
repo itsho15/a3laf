@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                  {!! Form::open(['route' => 'admin.banks.store']) !!}
+                                  {!! Form::open(['route' => 'admin.banks.store','files' => true]) !!}
 
                                     @include('admin.banks.fields')
 

@@ -52,4 +52,7 @@ class Category extends Model {
 		return $this->hasMany(self::class, 'parent_id', 'id');
 	}
 
+	public function ads() {
+		return $this->hasMany(Ad::class);
+	}
 }

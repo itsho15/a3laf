@@ -6,6 +6,7 @@ return array(
 	'fields' => array(
 		'id' => 'Id',
 		'name' => 'Name',
+		'image' => 'bank image',
 		'name_ar' => 'Name ar',
 		'created_at' => 'Created At',
 		'updated_at' => 'Updated At',

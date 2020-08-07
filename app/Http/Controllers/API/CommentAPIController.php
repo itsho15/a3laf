@@ -31,14 +31,11 @@ class CommentAPIController extends AppBaseController {
 	 *
 	 */
 	public function index(Request $request) {
-		$comments = $this->commentRepository->all(
-			$request->except(['skip', 'limit']),
-			$request->get('skip'),
-			$request->get('limit')
-		);
+	    
+		$comments = Comment::where('ad_id',request('ad_id'))->paginate(20);
 
 		return $this->sendResponse(
-			new CommentResource($comments),
+			$comments,
 			__('messages.retrieved', ['model' => __('models/comments.plural')])
 		);
 	}
@@ -50,6 +47,7 @@ class CommentAPIController extends AppBaseController {
 
 	 */
 	public function store(CreateCommentAPIRequest $request) {
+	    
 		$input = $request->all();
 
 		$comment = $this->commentRepository->create($input);

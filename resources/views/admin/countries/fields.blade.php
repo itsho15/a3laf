@@ -1,7 +1,8 @@
 <!-- Name Field -->
+
 <div class="form-group col-sm-6">
     {!! Form::label('name', __('models/countries.fields.name').':') !!}
-    {!! Form::text('name', (isset($country) && $country->getTranslation('name','en')) ? $country->getTranslation('name','en') : (isset($country) ) ? $country->name :null, ['class' => 'form-control']) !!}
+    {!! Form::text('name', (isset($country) && $country->getTranslation('name','en')) ? $country->getTranslation('name','en') : null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-6">
@@ -11,12 +12,14 @@
 </div>
 
 
+{{-- 
 <!-- Image Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('image', __('models/countries.fields.image').':') !!}
     {!! Form::file('image',['class'=>'form-control']) !!}
 </div>
 <div class="clearfix"></div>
+--}}
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

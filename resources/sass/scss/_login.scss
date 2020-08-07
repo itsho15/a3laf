@@ -1,0 +1,44 @@
+.login {
+    @include svgbg('login');
+    background-size: 50%;
+    background-position: left center;
+    background-repeat: repeat-y;
+    
+    @include m992 {
+        background-image: none;
+    }
+
+    .login-inner {
+        padding: 100px 0;
+
+        @include m992 {
+            padding: 40px 0;
+        }
+    }
+}
+
+.lemail,
+.lpassword {
+    position: relative;
+    
+    .form-control {
+        border-color: #eee;
+    }
+
+    i {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translate(5px, -50%);
+        font-size: 14px;
+
+        @include m992 {
+            top: 40%;
+            transform: translate(10px, -40%);
+        }
+    }
+}
+
+.no-account {
+    color: $sec;
+}

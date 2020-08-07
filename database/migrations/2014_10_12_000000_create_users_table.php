@@ -15,12 +15,13 @@ class CreateUsersTable extends Migration {
 			$table->id();
 			$table->string('name');
 			$table->string('type_name')->nullable();
-			$table->string('licenseـnumber')->nullable();
-			$table->text('licenseـimage')->nullable();
+			$table->string('license_number')->nullable();
+			$table->text('license_image')->nullable();
 			$table->string('means_of_communication')->nullable();
 			$table->string('civil_registry')->nullable();
 			$table->string('phone')->unique();
-			$table->string('email')->unique();
+			$table->string('device_id')->nullable();
+			$table->string('email')->nullable()->unique();
 			$table->timestamp('email_verified_at')->nullable();
 			$table->string('password');
 			$table->rememberToken();

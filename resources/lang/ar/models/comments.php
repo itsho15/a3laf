@@ -6,6 +6,7 @@ return array(
 	'fields' => array(
 		'id' => 'Id',
 		'body' => 'محتوي التعليق',
+		'yourcomment' => 'تعليقك',
 		'user_id' => 'المعلق',
 		'ad_id' => 'الاعلان',
 		'created_at' => 'انشأ في',

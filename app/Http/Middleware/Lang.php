@@ -13,6 +13,7 @@ class Lang {
 	 * @return mixed
 	 */
 	public function handle($request, Closure $next) {
+
 		app()->setLocale(lang());
 		return $next($request);
 	}

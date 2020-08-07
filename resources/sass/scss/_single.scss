@@ -1,0 +1,205 @@
+.entry-title {
+    font-size: 24px;
+    font-weight: 500;
+    
+    @include m992 {
+        margin-top: 40px;
+    }
+}
+
+.entry-info {
+    color: #777777;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.entry-address {
+    font-size: 12px;
+    background-color: #F9EEE7;
+    border-radius: 3px;
+    color: $sec;
+    padding: 2px 5px;
+}
+
+.seller-info {
+    padding-right: 70px;
+    height: 60px;
+    position: relative;
+
+    i {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        font-size: 28px;
+        color: #CCCCCC;
+        background-color: #fff;
+        border-radius: 100%;
+        border: 1px solid #CCCCCC;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    strong {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    span {
+        display: block;
+        font-size: 12px;
+        font-weight: 300;
+        color: #777;
+    }
+}
+
+.single {
+
+    header {
+        margin-bottom: 50px;
+    }
+
+    article {
+        font-weight: 300;
+
+        ul,
+        ol {
+            padding: 0 25px;
+            margin: 20px 0;
+        }
+    }
+
+    footer {
+        margin-top: 50px;
+    }
+}
+
+.single-sidebar {
+
+    .btn {
+        padding: 18px !important;
+    }
+
+    .price {
+        padding: 16px;
+        background-color: #E5F1EB;
+        color: $main;
+        border-radius: 5px;
+        text-align: center;
+    }
+}
+
+.report {
+    background-color: #F9E5E5;
+    border-color: #F9E5E5;
+    color: #C60606 !important;
+
+    &:active,
+    &:focus,
+    &:hover {
+        background-color: #C60606 !important;
+        color: #fff !important;
+    }
+}
+
+.comments {
+    h2 {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+
+    .comment-body {
+        padding: 20px;
+        background-color: #f9f9f9;
+        padding-right: 95px;
+        position: relative;
+    }
+
+    .avatar {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .user,
+    .date {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .user {
+        color: #222;
+    }
+
+    .comment-text {
+        font-size: 14px;
+        font-weight: 300;
+        color: #777;
+        margin: 5px 0 0;
+    }
+
+    .star-rating {
+        font-size: 12px;
+        color: $main;
+        display: inline-block;
+        margin-right: 10px;
+    }
+}
+
+.seller-comment {
+    background-color: #FCF7F3 !important;
+
+    strong {
+        color: $sec !important;
+    }
+}
+
+.leave-comment {
+    h2 {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+
+    .leave-comment-inner {
+        padding: 30px;
+        
+        @include m992 {
+            padding: 30px 15px;
+        }
+    }
+    
+    .form-control {
+        border-color: #EEEEEE;
+    }
+    
+    i {
+        color: #777777;
+    }
+}
+
+.form-row {
+
+    .your-name,
+    .your-email {
+        position: relative;
+
+        i {
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            transform: translate(5px, -50%);
+            font-size: 14px;
+
+            @include m992 {
+                top: 40%;
+                transform: translate(10px, -40%);
+            }
+        }
+    }
+}

@@ -18,6 +18,7 @@ class Bank extends Model {
 	public $translatable = ['name'];
 	public $fillable = [
 		'name',
+		'image'
 	];
 
 	/**

@@ -1,0 +1,74 @@
+.site-footer {
+    background-color: #F6F6F6;
+    padding: 60px 0;
+    font-size: 16px;
+
+    .desc {
+        color: #333333;
+        font-weight: 300;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        a {
+            padding: 5px 0;
+            display: block;
+
+            @include m992 {
+                font-size: 14px;
+            }
+
+            &:hover {
+                color: $main;
+            }
+        }
+    }
+    
+    .download-widget {
+        @include m992 {
+            margin-top: 30px;
+        }
+    }
+
+    .download-notice {
+        font-weight: 500;
+        color: #222;
+        font-size: 14px;
+    }
+}
+
+.copyrights {
+    background-color: #F3F3F3;
+    color: #afafaf;
+    padding: 15px 0;
+    font-size: 14px;
+    font-weight: 300;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        
+        @include m992 {
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        li {
+            display: inline-block;
+            margin-left: 10px;
+            a {
+                color: #afafaf;
+                display: block;
+                font-size: 14px;
+                &:hover {
+                    color: $main;
+                }
+            }
+        }
+    }
+}

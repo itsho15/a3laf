@@ -19,10 +19,10 @@ class FavoriteDataTable extends DataTable {
 
 		return $dataTable->addColumn('action', 'admin.favorites.datatables_actions')
 			->editColumn('user_id', function ($q) {
-				return $q->user->name;
+				return ($q->user) ? $q->user->name : '';
 			})
 			->editColumn('ad_id', function ($q) {
-				return $q->Ad->name;
+				return ($q->Ad) ? $q->Ad->name : '';
 			});
 	}
 

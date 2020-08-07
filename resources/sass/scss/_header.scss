@@ -1,0 +1,183 @@
+#header {
+    padding: 10px 0;
+    background-color: #fff;
+
+    .logo {
+        position: absolute;
+        top: -20px;
+
+        @include m992 {
+            display: none;
+        }
+    }
+
+    .logo-mobile {
+        display: none;
+
+        @include m992 {
+            display: block;
+        }
+    }
+
+    .navbar-nav {
+
+        @include m992 {
+            margin-top: 30px;
+            align-items: baseline !important;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+
+            @include m992 {
+                margin: 0 0 15px;
+            }
+
+            .nav-link {
+                font-size: 16px;
+                font-weight: 500;
+                padding: 0;
+                color: #222;
+
+                &:hover {
+                    color: $sec;
+                }
+            }
+        }
+
+        .btn-item {
+            margin-left: 20px;
+        }
+
+        .active a {
+            color: $sec;
+        }
+
+        li:last-child {
+            margin: 0;
+        }
+    }
+}
+
+.header-sticky {
+    position: fixed !important;
+    top: -100px;
+    width: calc(100%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 1060;
+    opacity: 0;
+    transition: 0.3s all;
+}
+
+.header-show {
+    top: 0;
+    opacity: 1;
+}
+
+
+.subheader,
+.home-subheader {
+    @include svgbg('home-subheader');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    h2 {
+        font-size: 26px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .subheader-inner {
+        padding-top: 60px;
+    }
+
+    .meta {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px 10px 0 0;
+
+        @include m992 {
+            padding: 30px 10px;
+        }
+    }
+
+    .ico-input {
+        position: relative;
+
+        i {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translate(10px, -50%);
+            font-size: 14px;
+
+            @include m992 {
+                top: 40%;
+                transform: translate(10px, -40%);
+            }
+        }
+    }
+
+    .btn {
+        padding: 12px 15px !important;
+        width: 100%;
+    }
+
+    .form-control {
+        font-weight: normal;
+    }
+
+    .form-control,
+    select {
+        font-size: 14px;
+        border: 2px solid #000;
+
+        @include m992 {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.subheader {
+    @include svgbg('subheader');
+
+    .subheader-inner {
+        padding-top: 0;
+
+        .meta {
+            padding: 15px 0;
+            background-color: transparent;
+        }
+
+        .ico-input i {
+            color: #fff;
+        }
+
+        .form-control,
+        select {
+            font-size: 14px;
+            border: 2px solid #fff;
+            background-color: transparent;
+            color: #fff;
+            
+            option {
+                color: #222;
+            }
+            
+            @include placeholder {
+                color: #fff;
+            }
+
+            @include m992 {
+                margin-bottom: 10px;
+            }
+        }
+        
+        select {
+            @include svgbg('arrow');
+        }
+        
+    }
+}

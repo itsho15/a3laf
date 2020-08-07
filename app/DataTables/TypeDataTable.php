@@ -91,7 +91,7 @@ class TypeDataTable extends DataTable {
 	protected function getColumns() {
 		return [
 			'id' => new Column(['title' => __('models/types.fields.id'), 'data' => 'id', 'searchable' => false]),
-			'name' => new Column(['title' => __('models/types.fields.name'), 'data' => 'name', 'searchable' => false]),
+			'name' => new Column(['title' => __('models/types.singular'), 'data' => 'name', 'searchable' => false]),
 		];
 	}
 

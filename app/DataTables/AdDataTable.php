@@ -100,14 +100,13 @@ class AdDataTable extends DataTable {
 		return [
 			'id' => new Column(['title' => __('models/ads.fields.id'), 'data' => 'id', 'searchable' => false]),
 			'name' => new Column(['title' => __('models/ads.fields.name'), 'data' => 'name', 'searchable' => true]),
-			'body' => new Column(['title' => __('models/ads.fields.body'), 'data' => 'body', 'searchable' => true]),
-			'status' => new Column(['title' => __('models/ads.fields.status'), 'data' => 'status', 'searchable' => false]),
 			'ad_type' => new Column(['title' => __('models/ads.fields.ad_type'), 'data' => 'ad_type', 'searchable' => true]),
 			'contact_types' => new Column(['title' => __('models/ads.fields.contact_types'), 'data' => 'contact_types', 'searchable' => false]),
 			'price' => new Column(['title' => __('models/ads.fields.price'), 'data' => 'price', 'searchable' => true]),
 			'city_id' => new Column(['title' => __('models/ads.fields.city_id'), 'data' => 'city_id', 'searchable' => true]),
 			'user_id' => new Column(['title' => __('models/ads.fields.user_id'), 'data' => 'user_id', 'searchable' => true]),
 			'category_id' => new Column(['title' => __('models/ads.fields.category_id'), 'data' => 'category_id', 'searchable' => true]),
+			'status' => new Column(['title' => __('models/ads.fields.status'), 'data' => 'status', 'searchable' => false]),
 		];
 	}
 

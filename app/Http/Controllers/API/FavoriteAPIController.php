@@ -59,88 +59,31 @@ class FavoriteAPIController extends AppBaseController {
 	 * @param CreateFavoriteAPIRequest $request
 	 * @return Response
 	 *
-	 * @SWG\Post(
-	 *      path="/favorites",
-	 *      summary="Store a newly created Favorite in storage",
-	 *      tags={"Favorite"},
-	 *      description="Store Favorite",
-	 *      produces={"application/json"},
-	 *      @SWG\Parameter(
-	 *          name="body",
-	 *          in="body",
-	 *          description="Favorite that should be stored",
-	 *          required=false,
-	 *          @SWG\Schema(ref="#/definitions/Favorite")
-	 *      ),
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  ref="#/definitions/Favorite"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
 	 */
 	public function store(CreateFavoriteAPIRequest $request) {
 		$input = $request->all();
 
-		$favorite = $this->favoriteRepository->create($input);
+		$checkIfExists = Favorite::where('ad_id', request('ad_id'))->where('user_id', JWTAuth::user()->id)->first();
+		if ($checkIfExists) {
+			$checkIfExists->delete();
+			return $this->sendResponse(
+				$checkIfExists->id,
+				__('messages.deleted', ['model' => __('models/favorites.singular')])
+			);
+		} else {
 
-		return $this->sendResponse(
-			$favorite->toArray(),
-			__('messages.saved', ['model' => __('models/favorites.singular')])
-		);
+			$favorite = $this->favoriteRepository->create($input);
+			return $this->sendResponse(
+				$favorite->toArray(),
+				__('messages.saved', ['model' => __('models/favorites.singular')])
+			);
+		}
 	}
 
 	/**
 	 * @param int $id
 	 * @return Response
 	 *
-	 * @SWG\Get(
-	 *      path="/favorites/{id}",
-	 *      summary="Display the specified Favorite",
-	 *      tags={"Favorite"},
-	 *      description="Get Favorite",
-	 *      produces={"application/json"},
-	 *      @SWG\Parameter(
-	 *          name="id",
-	 *          description="id of Favorite",
-	 *          type="integer",
-	 *          required=true,
-	 *          in="path"
-	 *      ),
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  ref="#/definitions/Favorite"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
 	 */
 	public function show($id) {
 		/** @var Favorite $favorite */
@@ -163,46 +106,7 @@ class FavoriteAPIController extends AppBaseController {
 	 * @param UpdateFavoriteAPIRequest $request
 	 * @return Response
 	 *
-	 * @SWG\Put(
-	 *      path="/favorites/{id}",
-	 *      summary="Update the specified Favorite in storage",
-	 *      tags={"Favorite"},
-	 *      description="Update Favorite",
-	 *      produces={"application/json"},
-	 *      @SWG\Parameter(
-	 *          name="id",
-	 *          description="id of Favorite",
-	 *          type="integer",
-	 *          required=true,
-	 *          in="path"
-	 *      ),
-	 *      @SWG\Parameter(
-	 *          name="body",
-	 *          in="body",
-	 *          description="Favorite that should be updated",
-	 *          required=false,
-	 *          @SWG\Schema(ref="#/definitions/Favorite")
-	 *      ),
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  ref="#/definitions/Favorite"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
+
 	 */
 	public function update($id, UpdateFavoriteAPIRequest $request) {
 		$input = $request->all();
@@ -228,39 +132,6 @@ class FavoriteAPIController extends AppBaseController {
 	 * @param int $id
 	 * @return Response
 	 *
-	 * @SWG\Delete(
-	 *      path="/favorites/{id}",
-	 *      summary="Remove the specified Favorite from storage",
-	 *      tags={"Favorite"},
-	 *      description="Delete Favorite",
-	 *      produces={"application/json"},
-	 *      @SWG\Parameter(
-	 *          name="id",
-	 *          description="id of Favorite",
-	 *          type="integer",
-	 *          required=true,
-	 *          in="path"
-	 *      ),
-	 *      @SWG\Response(
-	 *          response=200,
-	 *          description="successful operation",
-	 *          @SWG\Schema(
-	 *              type="object",
-	 *              @SWG\Property(
-	 *                  property="success",
-	 *                  type="boolean"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="data",
-	 *                  type="string"
-	 *              ),
-	 *              @SWG\Property(
-	 *                  property="message",
-	 *                  type="string"
-	 *              )
-	 *          )
-	 *      )
-	 * )
 	 */
 	public function destroy($id) {
 		/** @var Favorite $favorite */
